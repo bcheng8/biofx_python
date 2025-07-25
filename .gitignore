@@ -1,3 +1,10 @@
+# symlinks
+downloads
+
+# Byproduct output files
+03_revc/out
+04_fib/out
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -50,6 +57,9 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+
+# Benchmarking tool
+hyperfine_1.19.0_amd64.deb
 
 # Translations
 *.mo

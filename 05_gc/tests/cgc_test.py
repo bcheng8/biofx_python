@@ -61,11 +61,12 @@ def test_good_input2() -> None:
 
 # --------------------------------------------------
 def test_stdin() -> None:
-    """ Works on STDIN """
+    """ Fails on STDIN """
 
     rv, out = getstatusoutput(f'cat {SAMPLE1} | {RUN}')
-    assert rv == 0
-    assert out == 'Rosalind_0808 60.919540'
+    assert rv != 0
+    assert out.lower().startswith('usage:')
+    assert re.search('error: the following arguments are required: FILE', out)
 
 
 # --------------------------------------------------

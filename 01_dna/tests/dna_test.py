@@ -9,6 +9,7 @@ RUN = f'python {PRG}' if platform.system() == 'Windows' else PRG
 TEST1 = ('./tests/inputs/input1.txt', '1 2 3 4')
 TEST2 = ('./tests/inputs/input2.txt', '20 12 17 21')
 TEST3 = ('./tests/inputs/input3.txt', '196 231 237 246')
+TEST4 = ('./tests/inputs/input4.txt', '5 3 3 3')
 
 
 # --------------------------------------------------
@@ -56,3 +57,13 @@ def test_file() -> None:
         retval, out = getstatusoutput(f'{RUN} {file}')
         assert retval == 0
         assert out == expected
+
+
+# --------------------------------------------------
+def test_arg_case() -> None:
+    """ Program is case insensitive """
+    
+    file, expected = TEST4
+    retval, out = getstatusoutput(f'{RUN} {file}')
+    assert retval == 0
+    assert out == expected
