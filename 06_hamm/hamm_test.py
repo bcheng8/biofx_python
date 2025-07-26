@@ -4,6 +4,8 @@
 import os
 import platform
 from subprocess import getstatusoutput
+from hamm import hamming
+
 
 PRG = './hamm.py'
 RUN = f'python {PRG}' if platform.system() == 'Windows' else PRG
@@ -33,11 +35,22 @@ def run(file: str) -> None:
     """ Run with input """
 
     assert os.path.isfile(file)
-    seq1, seq2, expected = open(file).read().splitlines()
+    with open(file, encoding='utf-8') as f:
+        seq1, seq2, expected = f.read().splitlines()
 
     rv, out = getstatusoutput(f'{RUN} {seq1} {seq2}')
     assert rv == 0
     assert out.rstrip() == expected
+
+
+# --------------------------------------------------
+def test_hamming() -> None:
+    """ Test hamming """
+
+    assert hamming('', '') == 0
+    assert hamming('A', 'A') == 0
+    assert hamming('ACG', 'TCGA') == 2
+    assert hamming('GAGCCTACTAACGGGAT', 'CATCGTAATGACGGCCT') == 7
 
 
 # --------------------------------------------------

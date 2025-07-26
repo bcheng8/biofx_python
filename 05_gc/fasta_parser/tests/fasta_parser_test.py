@@ -5,11 +5,19 @@ from subprocess import getstatusoutput
 import re
 import random
 import string
-from ..fasta_parser import Seq
+from typing import NamedTuple
 
 
 PRG = './fasta_parser.py'
 INPUT1 = './tests/input1.fa'
+
+
+# --------------------------------------------------
+class Seq(NamedTuple):
+    """ Copying Seq class here due to import restrictions """
+    id: str
+    seq: str
+
 
 # --------------------------------------------------
 def test_exists():
@@ -50,6 +58,5 @@ def test_good_input1():
     retval, out = getstatusoutput(f'{PRG} {INPUT1}')
     assert retval == 0
 
-    assert out == [Seq('Sequence_A', 'ATCG'),
-                   Seq('Sequence_B', 'CCGGGA'),
-                   Seq('Sequence_C', 'TCACTACTACCTGCCCCCCCCCCCCC')]
+    assert out == (f'file = "{INPUT1}"\n'
+    "[Seq(id='Sequence_A', seq='ATCG'), Seq(id='Sequence_B', seq='CCGGGA'), Seq(id='Sequence_C', seq='TCACTACTACCTGCCCCCCCCCCCCC')]")
